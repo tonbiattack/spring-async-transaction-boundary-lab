@@ -1,0 +1,89 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------< com.example:spring-async-transaction-boundary-lab >----------
+[INFO] Building spring-async-transaction-boundary-lab 1.0.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:3.3.1:resources (default-resources) @ spring-async-transaction-boundary-lab ---
+[INFO] skip non existing resourceDirectory /home/ubuntu/spring-async-transaction-boundary-lab/src/main/resources
+[INFO] skip non existing resourceDirectory /home/ubuntu/spring-async-transaction-boundary-lab/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.14.0:compile (default-compile) @ spring-async-transaction-boundary-lab ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 6 source files with javac [debug parameters release 21] to target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.3.1:testResources (default-testResources) @ spring-async-transaction-boundary-lab ---
+[INFO] skip non existing resourceDirectory /home/ubuntu/spring-async-transaction-boundary-lab/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.14.0:testCompile (default-testCompile) @ spring-async-transaction-boundary-lab ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 21] to target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.5.3:test (default-test) @ spring-async-transaction-boundary-lab ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.example.asynctx.InvoiceServiceIntegrationTest
+14:27:35.215 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.asynctx.InvoiceServiceIntegrationTest]: InvoiceServiceIntegrationTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:27:35.320 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.asynctx.AsyncTransactionLabApplication for test class com.example.asynctx.InvoiceServiceIntegrationTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.0)
+
+2026-08-16T14:27:35.697Z  INFO 5424 --- [           main] c.e.a.InvoiceServiceIntegrationTest      : Starting InvoiceServiceIntegrationTest using Java 21.0.11 with PID 5424 (started by ubuntu in /home/ubuntu/spring-async-transaction-boundary-lab)
+2026-08-16T14:27:35.698Z  INFO 5424 --- [           main] c.e.a.InvoiceServiceIntegrationTest      : No active profile set, falling back to 1 default profile: "default"
+2026-08-16T14:27:36.222Z  INFO 5424 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-08-16T14:27:36.369Z  INFO 5424 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:0d985a9c-5070-4383-a7e9-45bcfd41c1ea user=SA
+2026-08-16T14:27:36.371Z  INFO 5424 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-08-16T14:27:36.530Z  INFO 5424 --- [           main] c.e.a.InvoiceServiceIntegrationTest      : Started InvoiceServiceIntegrationTest in 1.093 seconds (process running for 1.939)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/home/ubuntu/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.5/byte-buddy-agent-1.17.5.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-08-16T14:27:37.140Z  INFO 5424 --- [ notification-1] c.example.asynctx.NotificationService    : transactionActive=false, invoiceVisible=false, workerThread=notification-1
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 2.146 s <<< FAILURE! -- in com.example.asynctx.InvoiceServiceIntegrationTest
+[ERROR] com.example.asynctx.InvoiceServiceIntegrationTest.非同期通知はコミット済みの請求書を読み取れる -- Time elapsed: 0.664 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+[通知ワーカーはコミット済み請求書を読み取れること] 
+Expecting value to be true but was false
+	at com.example.asynctx.InvoiceServiceIntegrationTest.非同期通知はコミット済みの請求書を読み取れる(InvoiceServiceIntegrationTest.java:45)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   InvoiceServiceIntegrationTest.非同期通知はコミット済みの請求書を読み取れる:45 [通知ワーカーはコミット済み請求書を読み取れること] 
+Expecting value to be true but was false
+[INFO] 
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.541 s
+[INFO] Finished at: 2026-08-16T14:27:37Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.3:test (default-test) on project spring-async-transaction-boundary-lab: There are test failures.
+[ERROR] 
+[ERROR] See /home/ubuntu/spring-async-transaction-boundary-lab/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
