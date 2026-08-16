@@ -1,6 +1,8 @@
 package com.example.asynctx;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -13,18 +15,19 @@ public class NotificationService {
     private static final Logger log = LoggerFactory.getLogger(NotificationService.class);
 
     private final InvoiceRepository repository;
-    private final NotificationGate gate;
+    private final ConcurrentMap<String, CompletableFuture<NotificationObservation>> observations =
+            new ConcurrentHashMap<>();
 
-    public NotificationService(InvoiceRepository repository, NotificationGate gate) {
+    public NotificationService(InvoiceRepository repository) {
         this.repository = repository;
-        this.gate = gate;
+    }
+
+    public CompletableFuture<NotificationObservation> prepareObservation(String invoiceId) {
+        return observations.computeIfAbsent(invoiceId, ignored -> new CompletableFuture<>());
     }
 
     @Async("notificationExecutor")
     public CompletableFuture<NotificationObservation> readInvoiceForNotification(String invoiceId) {
-        gate.signalWorkerStarted();
-        gate.awaitReadPermission();
-
         NotificationObservation observation = new NotificationObservation(
                 TransactionSynchronizationManager.isActualTransactionActive(),
                 repository.exists(invoiceId),
@@ -32,7 +35,7 @@ public class NotificationService {
         );
         log.info("transactionActive={}, invoiceVisible={}, workerThread={}",
                 observation.transactionActive(), observation.invoiceVisible(), observation.workerThread());
-        gate.signalWorkerReadCompleted();
+        prepareObservation(invoiceId).complete(observation);
         return CompletableFuture.completedFuture(observation);
     }
 }

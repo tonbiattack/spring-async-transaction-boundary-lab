@@ -18,13 +18,9 @@ class InvoiceServiceIntegrationTest {
     @Autowired
     private InvoiceRepository repository;
 
-    @Autowired
-    private NotificationGate gate;
-
     @BeforeEach
     void setUp() {
         repository.deleteAll();
-        gate.reset();
     }
 
     @Test
